@@ -46,6 +46,12 @@ class Service extends DefaultNavigationFactory
             $routeMatch  = $application->getMvcEvent()->getRouteMatch();
             $router      = $application->getMvcEvent()->getRouter();
             $pages       = $this->getPagesFromConfig($configuration['navigation'][$this->getName()]);
+            foreach ($pages as $routeName => $options) {
+                foreach ($options['pages'] as $key => $page) {
+                    $pages[$routeName]['pages'][$key]['params']['lang'] = $language_code;
+                }
+
+            }
 
             $this->pages = $this->injectComponents($pages, $routeMatch, $router);
         }
